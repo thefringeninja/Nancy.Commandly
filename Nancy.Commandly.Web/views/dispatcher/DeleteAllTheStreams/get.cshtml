@@ -1,0 +1,7 @@
+﻿@using Nancy.Commandly.Web
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Nancy.Commandly.Web.ViewModels.ICommandForm<Nancy.Commandly.Web.Model.DeleteAllTheStreams>>
+
+<form method="POST" action="@Model.Action">
+    <label>Are you Sure?</label><input type="checkbox" name="areYouSure" /><br />
+    <input type="submit" />
+</form>

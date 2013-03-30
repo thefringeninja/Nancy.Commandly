@@ -1,0 +1,24 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Commandly Demo</title>
+    </head>
+    <body>
+        <p>Hey there, user! Would you like to</p>
+        <ul>
+            <li>
+                <a href="/dispatcher/delete-all-the-streams">Delete ALL the streams</a>?
+            </li>
+            <li>
+                <a href="/dispatcher/ping-me">Ping Yourself</a>
+            </li>
+            <li>
+                <a href="/dispatcher/ping-me?message=We%20were%20coming%20back.%20We%20were%20always%20coming%20back.&on=01/01/3030">Ping Yourself with inputs filled in</a>
+            </li>
+            <li>
+                <a href="/dispatcher/no-handler-registered">Do something that's not implemented yet</a>
+            </li>
+        </ul>
+    </body>
+</html>

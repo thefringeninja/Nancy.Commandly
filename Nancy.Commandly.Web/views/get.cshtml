@@ -1,0 +1,12 @@
+﻿@using Nancy.Commandly.Web
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Nancy.Commandly.Web.ViewModels.ICommandForm<object>>
+
+<form method="POST" action="@Model.Action">
+    @foreach (var input in Model.Input.ToInputModel())
+    {
+        <label>@input.Item1.Titleize()</label>
+        <input type="@input.Item2" name="@input.Item1.Underscore().Camelize()" value="@input.Item3"/>
+        <br/>
+    }
+    <input type="submit" />
+</form>
