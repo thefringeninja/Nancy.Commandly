@@ -7,17 +7,17 @@ using Nancy.Commandly.Web;
 using Nancy.Commandly.Web.Model;
 using Nancy.Testing;
 using Simple.Testing.ClientFramework;
-
+using NancyBrowser = Nancy.Testing.Browser;
 namespace Nancy.Commandly.Tests.SpecificationTemplates
 {
     public class NancyResponseSpecification<TModule> :
-        TypedSpecification<NancyResponseSpecification<TModule>.BrowserResult>
+        TypedSpecification<NancyResponseSpecification<TModule>.Browser>
         where TModule : INancyModule
     {
         private readonly FakeBus bus;
         public Action Before;
         public Action<ConfigurableBootstrapper.ConfigurableBootstrapperConfigurator> Bootstrap = with => { };
-        public List<Expression<Func<BrowserResult, bool>>> Expect = new List<Expression<Func<BrowserResult, bool>>>();
+        public List<Expression<Func<Browser, bool>>> Expect = new List<Expression<Func<Browser, bool>>>();
         public Action Finally;
         public string Name;
 
@@ -50,14 +50,14 @@ namespace Nancy.Commandly.Tests.SpecificationTemplates
 
         public Delegate GetWhen()
         {
-            return new Func<UserAgent, BrowserResult>(
-                userAgent => new BrowserResult(
+            return new Func<UserAgent, Browser>(
+                userAgent => new Browser(
                                  userAgent.Execute(
-                                     new Browser(with => Bootstrap(
+                                     new NancyBrowser(with => Bootstrap(
                                          with.Module<TModule>().Dependency<IBus>(bus)))), bus));
         }
 
-        public IEnumerable<Expression<Func<BrowserResult, bool>>> GetAssertions()
+        public IEnumerable<Expression<Func<Browser, bool>>> GetAssertions()
         {
             return Expect;
         }
@@ -72,9 +72,9 @@ namespace Nancy.Commandly.Tests.SpecificationTemplates
    
         #region Nested type: BrowserResult
 
-        public class BrowserResult
+        public class Browser
         {
-            public BrowserResult(BrowserResponse response, FakeBus bus)
+            public Browser(BrowserResponse response, FakeBus bus)
             {
                 Dispatched = new List<object>(bus.SentCommands).AsReadOnly();
                 Response = response;
